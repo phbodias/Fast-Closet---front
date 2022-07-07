@@ -36,9 +36,12 @@ function RegisterPage () {
                 navigate('/login');
             })
             .catch( err =>{
-                console.log(err)
+                console.log(err.response);
+                alert(err.response.data);
             })
+            return
         }
+        alert('Preencha os dados corretamente')
 
     }
 
