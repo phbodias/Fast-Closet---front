@@ -1,7 +1,12 @@
+import HomeFooter from "../Footer/HomeFooter";
+import HomeHeader from "../Header/HomeHeader";
 
 function HomePage (){
     return (
-        <h1>Hello World</h1>
+        <>
+            <HomeHeader></HomeHeader>
+            <HomeFooter></HomeFooter>
+        </>
     )
 }
 
