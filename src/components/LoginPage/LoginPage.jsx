@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { registerSchema } from '../../validations/validationsYup'
 import axios from "axios";
-import Header from "../Header/Header";
+import Header from "../Headers/HeaderLoginRegister";
 import { Background, Form } from './LoginStyle';
 
 function LoginPage() {
