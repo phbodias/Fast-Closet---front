@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from 'react-router-dom';
 import { registerSchema } from '../../validations/validationsYup'
 import axios from "axios";
+import Header from "../Headers/HeaderLoginRegister";
 
 function RegisterPage () {
     const navigate = useNavigate();
@@ -43,9 +44,7 @@ function RegisterPage () {
 
     return (
         <Background>
-            <Header>
-                <h1>FastCloset</h1>
-            </Header>
+            <Header/>
 
             <Form onSubmit={sendRegister} >
                 <h1>Cadastre-se abaixo</h1>
@@ -83,22 +82,6 @@ const Background = styled.div`
     align-items: center;
     flex-direction: column;
     height: 100vh;
-`
-
-const Header = styled.header`
-    padding: 20px 0px;
-    display: flex; justify-content: center;
-    background-color: #D92525;
-    width: 100%;
-    height: fit-content;
-    box-shadow: 1px 1px 10px 5px #00000058;
-    position: fixed; top: 0;
-
-    h1{ 
-        font-size: 1.8em;
-        font-family: var(--pacifico-font);
-        color: white;
-    }
 `
 
 const Form = styled.form`
