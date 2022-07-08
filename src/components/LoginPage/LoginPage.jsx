@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { registerSchema } from '../../validations/validationsYup'
+import { loginSchema } from '../../validations/validationsYup'
 import axios from "axios";
 import Header from "../Header/Header";
 import { Background, Form } from './LoginStyle';
 
 function LoginPage() {
     const navigate = useNavigate();
-
+    
     async function sendLogin(e) {
         e.preventDefault();
         const email = e.target[1].value;
@@ -17,10 +17,10 @@ function LoginPage() {
             password,
         }
 
-        const isValid = await registerSchema.isValid(user);
+        const isValid = await loginSchema.isValid(user);
 
         if (isValid) {
-            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/login`, user);
+            const promise = axios.post(`https://fast-closet.herokuapp.com/login`, user);
             promise.then((res) => {
                 navigate('/home');
             })
@@ -37,9 +37,9 @@ function LoginPage() {
             <Form onSubmit={sendLogin} >
                 <h1>Identificação</h1>
 
-                <input type="text" placeholder="Nome" required />
+                <input type="email" placeholder="email" required />
 
-                <input type="email" placeholder="E-mail" required />
+                <input type="password" placeholder="senha" required />
 
                 <button>Entrar</button>
 
