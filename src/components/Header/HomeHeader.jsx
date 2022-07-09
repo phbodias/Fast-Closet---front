@@ -27,7 +27,7 @@ const HeaderStyle = styled.header`
     padding: 20px 0px;
     display: flex; 
     justify-content: space-evenly;
-    background-color: #D92525;
+    background-color: #ab9a9ad5;
     width: 100%;
     height: 65px;
     box-shadow: 1px 1px 10px 5px #00000058;
