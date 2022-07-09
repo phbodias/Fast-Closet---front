@@ -93,7 +93,7 @@ const Form = styled.form`
     justify-content: center;
     align-items: center;
     gap: 15px;
-    background-color: #D92525;
+    background-color: #ab9a9ad5;
     padding: 15px;
     border-radius: 10px;
     width: 70%;

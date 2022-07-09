@@ -8,13 +8,13 @@ function ProductIdPage (){
     const [product, setProduct] = useState(null);
 
     const { id } = useParams();
-
+    console.log(id)
     useEffect( () => {
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/product/${id}`);
         promise
         .then( res =>{
             console.log(res.data)
-            setProduct(res.data)
+            setProduct(res.data.product)
         })
         .catch( err =>{
             console.log(err.response.data)
@@ -31,7 +31,7 @@ function ProductIdPage (){
 
             {product ?
             <ProductComponent
-            image={product.image}
+            images={product.images}
             title={product.title}
             value={product.value}
             description={product.description}
@@ -43,7 +43,7 @@ function ProductIdPage (){
     )
 }
 
-function ProductComponent ({ image, title, value, description }){
+function ProductComponent ({ images, title, value, description }){
 
     function addOnCart(){
         console.log('adicionei no carrinho');
@@ -55,7 +55,8 @@ function ProductComponent ({ image, title, value, description }){
             <ProductBox>
 
                 <BoxImg>
-                    <img src={image} alt="" />
+                
+                   {images.map( image => <img src={image} alt="" />)}
                 </BoxImg>
 
                 <TitleAndValue>
@@ -101,14 +102,18 @@ const Background = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
+    box-sizing: border-box;
 `
 
 const Content = styled.div`
+    box-sizing: border-box;
     display: flex; justify-content: center;
     margin-top: 69px;
     width: 100%;
     padding-top: 25px;
-
+    padding-right: 10px;
+    padding-left: 10px;
+ 
     .noProduct{
         padding-top: 25px;
         font-size: 1.5em;
@@ -126,10 +131,11 @@ const BoxImg = styled.div`
     box-sizing: border-box;
     border-radius: 5px;
     background-color: white;
-    display: flex; justify-content: center; align-items: center;
+    display: flex; justify-content: flex-start; align-items: center;
     width: 100%;
     height: 300px;
-    border: 3px solid var(--cor04);
+    border: 3px solid #1D1B1B;
+    overflow: scroll;
 
     img{
         height: 100%;
@@ -164,7 +170,7 @@ const AmountBox = styled.div`
 
 const BuyButton = styled.div`
     text-align: center;
-    background-color: var(--cor04);
+    background-color: #1D1B1B;
     width: 50%;
     padding: 10px 0px;
     color: white;
@@ -192,5 +198,5 @@ const Description = styled.div`
 const Hrow = styled.div`
     height: 1px;
     width: 100%;
-    background-color: var(--cor04);
+    background-color:#1D1B1B ;
 `
