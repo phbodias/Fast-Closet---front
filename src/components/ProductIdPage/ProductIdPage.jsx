@@ -8,7 +8,7 @@ function ProductIdPage (){
     const [product, setProduct] = useState(null);
 
     const { id } = useParams();
-    console.log(id)
+
     useEffect( () => {
         const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/product/${id}`);
         promise

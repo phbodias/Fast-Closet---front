@@ -15,7 +15,7 @@ function HomePage() {
     }, []);
 
     function getProducts() {
-        const promise = axios.get("https://fast-closet.herokuapp.com/products");
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/products`);
         promise
             .then((res) => {
                 const data = shuffleArray(res.data);
@@ -46,7 +46,7 @@ function HomePage() {
                 {products.map((product, index) => {
                     return (
                         <div key={index}>
-                            <Link to={`/produto/:${idProducts[index]}`}>
+                            <Link to={`/produto/${idProducts[index]}`}>
                                 <Image>
                                     {product.images.map((image, i) => {
                                         return (
