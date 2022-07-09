@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import HomeFooter from "../Footer/HomeFooter";
-import HomeHeader from "../Header/HomeHeader";
+import HomeHeader from "../Headers/HomeHeader";
 
 function HomePage() {
     const [products, setProducts] = useState([]);

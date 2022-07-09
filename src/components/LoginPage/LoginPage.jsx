@@ -30,7 +30,7 @@ function LoginPage() {
                 .catch(err => {
                     alert(err.response.data)
                 })
-main
+                
             return
         }
         alert('Preencha os dados corretamente, senha inválida ou usuário não existe');
