@@ -6,29 +6,32 @@ import { Background, Form } from './LoginStyle';
 
 function LoginPage() {
     const navigate = useNavigate();
-    
+
     async function sendLogin(e) {
         e.preventDefault();
-        const email = e.target[1].value;
-        const password = e.target[2].value;
+        const email = e.target[0].value;
+        const password = e.target[1].value;
 
         const user = {
             email,
             password,
         }
-
         const isValid = await loginSchema.isValid(user);
 
         if (isValid) {
             const promise = axios.post(`https://fast-closet.herokuapp.com/login`, user);
-            promise.then((res) => {
-                navigate('/home');
-            })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
+            promise
 
+                .then((res) => {
+                    navigate('/');
+                })
+
+                .catch(err => {
+                    alert(err.response.data)
+                })
+            return
+        }
+        alert('Preencha os dados corretamente, senha inválida ou usuário não existe');
     }
 
     return (

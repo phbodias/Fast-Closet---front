@@ -26,17 +26,21 @@ export default function HomeHeader() {
 const HeaderStyle = styled.header`
     padding: 20px 0px;
     display: flex; 
-    justify-content: space-between;
+    justify-content: space-evenly;
     background-color: #D92525;
     width: 100%;
-    height: fit-content;
+    height: 65px;
     box-shadow: 1px 1px 10px 5px #00000058;
     position: fixed; top: 0;
+    z-index: 1;
+    box-sizing: border-box;
 
     h1{ 
         font-size: 1.8em;
         font-family: var(--pacifico-font);
         color: white;
+        width: 70vw;
+        text-align: center;
     }
 
     p{
