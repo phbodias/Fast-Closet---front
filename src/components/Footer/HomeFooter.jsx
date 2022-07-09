@@ -25,7 +25,6 @@ const FooterStyle = styled.div`
     height: 75px;
     box-shadow: 1px 1px 10px 5px #00000058;
     position: fixed; bottom: 0;
-    z-index: 1;
     box-sizing: border-box;
 
     h1{ 
