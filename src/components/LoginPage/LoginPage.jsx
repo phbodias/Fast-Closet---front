@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { loginSchema } from '../../validations/validationsYup'
 import axios from "axios";
-import Header from "../Header/Header";
+import Header from "../Headers/HeaderLoginRegister";
 import { Background, Form } from './LoginStyle';
 
 function LoginPage() {
@@ -19,6 +19,7 @@ function LoginPage() {
         const isValid = await loginSchema.isValid(user);
 
         if (isValid) {
+
             const promise = axios.post(`https://fast-closet.herokuapp.com/login`, user);
             promise
 
@@ -29,6 +30,7 @@ function LoginPage() {
                 .catch(err => {
                     alert(err.response.data)
                 })
+main
             return
         }
         alert('Preencha os dados corretamente, senha inválida ou usuário não existe');
@@ -40,9 +42,9 @@ function LoginPage() {
             <Form onSubmit={sendLogin} >
                 <h1>Identificação</h1>
 
-                <input type="email" placeholder="email" required />
+                <input type="email" placeholder="Email" required />
 
-                <input type="password" placeholder="senha" required />
+                <input type="password" placeholder="Senha" required />
 
                 <button>Entrar</button>
 
