@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HomeFooter from "../Footer/HomeFooter";
 import HomeHeader from "../Headers/HomeHeader";
 
 function HomePage() {
     const [products, setProducts] = useState([]);
+    const [idProducts, setIdProducts] = useState([]);
 
     useEffect(() => {
         getProducts();
@@ -16,7 +18,9 @@ function HomePage() {
         const promise = axios.get("https://fast-closet.herokuapp.com/products");
         promise
             .then((res) => {
-                setProducts(shuffleArray(res.data.map((product) => (product.product))));
+                const data = shuffleArray(res.data);
+                setIdProducts(data.map((item) => (item._id)))
+                setProducts(data.map((product) => (product.product)));
             })
 
             .catch(err => {
@@ -42,13 +46,15 @@ function HomePage() {
                 {products.map((product, index) => {
                     return (
                         <div key={index}>
-                            <Image>
-                                {product.images.map((image, i) => {
-                                    return (
-                                        <img src={image} alt="" />
-                                    )
-                                })}
-                            </Image>
+                            <Link to={`/produto/:${idProducts[index]}`}>
+                                <Image>
+                                    {product.images.map((image, i) => {
+                                        return (
+                                            <img src={image} alt="" key={i} />
+                                        )
+                                    })}
+                                </Image>
+                            </Link>
                             <SubTitle>
                                 <p>{product.title}</p>
                                 <h1>R${product.value}</h1>
@@ -75,23 +81,17 @@ const SubTitle = styled.div`
 
     h1 {
         font-weight: 700;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
+        text-align: center;
     }
 `
 
 const Image = styled.div`
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    max-width: 100vw;
     overflow-x: scroll;
 
     img{
         width: 100vw;
         max-width: 600px;
-        object-fit: cover;
     }
 `
 
