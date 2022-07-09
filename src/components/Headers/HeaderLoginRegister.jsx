@@ -11,7 +11,7 @@ export default function Header() {
 const HeaderStyle = styled.header`
     padding: 20px 0px;
     display: flex; justify-content: center;
-    background-color: #D92525;
+    background-color: #1d1b1bc6;
     width: 100%;
     height: fit-content;
     box-shadow: 1px 1px 10px 5px #00000058;

@@ -19,16 +19,18 @@ function LoginPage() {
         const isValid = await loginSchema.isValid(user);
 
         if (isValid) {
-            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/login`, user);
+
+            const promise = axios.post(`https://fast-closet.herokuapp.com/login`, user);
             promise
 
-            .then((res) => {
-                navigate('/');
-            })
+                .then((res) => {
+                    navigate('/');
+                })
 
-            .catch(err => {
-                alert(err.response.data)
-            })
+                .catch(err => {
+                    alert(err.response.data)
+                })
+                
             return
         }
         alert('Preencha os dados corretamente, senha inválida ou usuário não existe');

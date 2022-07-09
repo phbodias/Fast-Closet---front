@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Background = styled.div`
-    background-color: white;
+    background-color: #e2e2e2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,7 @@ const Form = styled.form`
     justify-content: center;
     align-items: center;
     gap: 15px;
-    background-color: #D92525;
+    background-color: #1d1b1bc6;
     padding: 15px;
     border-radius: 10px;
     width: 70%;
