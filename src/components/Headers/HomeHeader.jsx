@@ -1,25 +1,15 @@
 //import axios from "axios";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
 import { useState } from "react";
 import Sidebar from '../Sidebar/sidebar'
 
 export default function HomeHeader() {
-    const [user, setUser] = useState([]);
-
     const [sidebar, setSidebar] = useState(false)
 
     const showSiderbar = () => setSidebar(!sidebar)
 
     return (
         <HeaderStyle>
-            {user.length === 0 ? (
-                <Link to='/login'>
-                    <p><ion-icon name="log-in-outline"></ion-icon></p>
-                </Link>
-            ) : (
-                <p onClick={() => setUser([])}><ion-icon name="log-out-outline"></ion-icon></p>
-            )}
             <h1>FastCloset</h1>
             <p onClick={showSiderbar}><ion-icon name="menu-outline"></ion-icon></p>
             {sidebar && <Sidebar active={setSidebar} />}
@@ -28,9 +18,9 @@ export default function HomeHeader() {
 }
 
 const HeaderStyle = styled.header`
-    padding: 20px 0px;
+    padding: 20px 25px;
     display: flex; 
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-color: #ab9a9ad5;
     width: 100%;
     height: 65px;
@@ -43,7 +33,6 @@ const HeaderStyle = styled.header`
         font-size: 1.8em;
         font-family: var(--pacifico-font);
         color: white;
-        width: 70vw;
         text-align: center;
     }
 

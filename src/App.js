@@ -17,7 +17,6 @@ function App() {
         <Route path='/register' element={<RegisterPage/>} />
         <Route path='/login' element={<LoginPage/>} />
         <Route path='/produto/:id' element={<ProductIdPage/>} />
-        
         <Route path='/finalizarpedido' element={<FinishOrderPage />} />
         <Route path='/pedidofinalizado/:orderId' element={<FinishedOrderPage />} />
       </Routes>
