@@ -10,7 +10,7 @@ function ProductIdPage (){
     const { id } = useParams();
 
     useEffect( () => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/product/${id}`);
+        const promise = axios.get(`https://fast-closet.herokuapp.com/product/${id}`);
         promise
         .then( res =>{
             console.log(res.data)
