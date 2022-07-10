@@ -9,7 +9,6 @@ function FinishedOrderPage() {
     const navigate = useNavigate();
     const { orderId } = useParams();
 
-   
     useEffect( () => {
         const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/ordersfinished/${orderId}`);
 
@@ -69,19 +68,20 @@ const Content = styled.div`
     height: 100%;
 
     h1{ 
+        font-family: var(--roboto-font);
         font-weight: bold;
         text-align: center;
     }
 
     button{
         color: white;
-        background-color: var(--cor04);
+        background-color: #ab9a9ad5;
         font-size: 1.1em;
         border: none;
         padding: 8px 16px;
         border-radius: 5px;
         &:hover{
-            background-color: #ffa6a6;
+            background-color: #272323d4;
             cursor: pointer;
         }
     }

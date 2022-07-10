@@ -9,7 +9,7 @@ function FinishOrderPage() {
     
     // & RECEBE CARRINHO COM OS PRODUTOS ( ARRAY DE OBJETOS )
     // & RENDERIZA OS PRODUTOS NA TELA
-    // & APÓS O USUÁRIO PREENCHER TODOS OS DADOS CONFIRMA E VAI PRA TELA DE "PAGAMENTO"
+    // & APÓS O USUÁRIO PREENCHER TODOS OS DADOS VALIDA-OS E VAI PRA TELA DE "SUCESSO"
 
     
     function finishOrder (e){
@@ -89,7 +89,8 @@ const FormBox = styled.div`
     width: 100%;
     gap: 15px;
 
-    h2{
+    h2{ 
+        font-family: var(--roboto-font);
         font-weight: bold;
     }
 
@@ -98,7 +99,7 @@ const FormBox = styled.div`
 const Hrow = styled.div`
     height: 1px;
     width: 100%;
-    background-color: var(--cor04);
+    background-color: #ab9a9ad5;
 `
 
 const Form = styled.form`
@@ -138,13 +139,13 @@ const Form = styled.form`
 
     button{
         color: white;
-        background-color: var(--cor04);
+        background-color: #ab9a9ad5;
         font-size: 1.1em;
         border: none;
         padding: 8px 16px;
         border-radius: 5px;
         &:hover{
-            background-color: #ffa6a6;
+            background-color: #000000d2;
             cursor: pointer;
         }
     }
