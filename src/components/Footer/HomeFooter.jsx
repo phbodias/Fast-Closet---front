@@ -1,17 +1,24 @@
 //import axios from "axios";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import { useState } from "react";
 
 export default function HomeFooter() {
+    const [user, setUser] = useState([]);
+
     return (
         <FooterStyle>
             <Link to='/'>
                 <p><ion-icon name="home-outline"></ion-icon></p>
             </Link>
-            <Link to='/'>
-                <p><ion-icon name="grid-outline"></ion-icon></p>
-            </Link>
             <p><ion-icon name="cart-outline"></ion-icon></p>
+            {user.length === 0 ? (
+                <Link to='/login'>
+                    <p><ion-icon name="log-in-outline"></ion-icon></p>
+                </Link>
+            ) : (
+                <p onClick={() => setUser([])}><ion-icon name="log-out-outline"></ion-icon></p>
+            )}
         </FooterStyle>
     )
 }

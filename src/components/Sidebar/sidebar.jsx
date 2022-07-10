@@ -28,7 +28,7 @@ const Sidebar = ({ active }) => {
   )
 }
 
-export const Options = styled.div`
+const Options = styled.div`
 
   margin-top: 40px;
 
@@ -43,11 +43,11 @@ export const Options = styled.div`
   }
 `
 
-export const Hello = styled.div`
+const Hello = styled.div`
   margin: 20px;
 `
 
-export const Container = styled.div`
+const Container = styled.div`
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -68,7 +68,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Vazio = styled.div`
+const Vazio = styled.div`
     height: 100vh;
     width: calc(100vw - 300px);
     position: fixed;
@@ -84,7 +84,7 @@ const Close = styled.div`
   cursor: pointer;
 `
 
-export const Content = styled.div`
+const Content = styled.div`
     background-color: #344149;
     width: 300px;
     position: fixed;
