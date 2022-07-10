@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import UserContext from '../../contexts/UserContext';
 
 const Sidebar = ({ active }) => {
+
+  const { name } = useContext(UserContext);
 
   const closeSidebar = () => { active(false) }
 
@@ -12,7 +15,11 @@ const Sidebar = ({ active }) => {
       <Content>
         <Close onClick={closeSidebar}><ion-icon name="close-circle-outline"></ion-icon></Close>
         <Hello>
-          <p>Olá ;)</p>
+          {name !== "" ? (
+            <p>Olá, {name}.</p>
+          ) : (
+            <p>Olá ;)</p>
+          )}
         </Hello>
         <Options>
           <div>
