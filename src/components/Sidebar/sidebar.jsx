@@ -9,7 +9,7 @@ const Sidebar = ({ active }) => {
     <Container sidebar={active}>
       <Vazio onClick={closeSidebar}></Vazio>
       <Content>
-        <h1 onClick={closeSidebar}><ion-icon name="close-circle-outline"></ion-icon></h1>
+        <Close onClick={closeSidebar}><ion-icon name="close-circle-outline"></ion-icon></Close>
         <Hello>
           <p>Olá ;)</p>
         </Hello>
@@ -75,22 +75,21 @@ export const Vazio = styled.div`
     left: 0;
 `
 
+const Close = styled.div`
+  font-size: 40px;
+  position: fixed;
+  margin-top: 20px;
+  margin-left: 250px;
+  color: white;
+  cursor: pointer;
+`
+
 export const Content = styled.div`
     background-color: #344149;
     width: 300px;
     position: fixed;
     right: 0;
     height: 100vh;
-  
-    h1 {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        color: white;
-        width: 35px;
-        height: 35px;
-        cursor: pointer;
-    }
 
 `;
 
