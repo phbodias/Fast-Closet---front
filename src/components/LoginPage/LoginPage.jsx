@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
 import { loginSchema } from '../../validations/validationsYup'
 import axios from "axios";
 import Header from "../Headers/HeaderLoginRegister";
@@ -8,8 +7,6 @@ import { Background, Form } from './LoginStyle';
 
 function LoginPage() {
     const navigate = useNavigate();
-
-    const { setToken, setName } = useContext(UserContext);
 
     async function sendLogin(e) {
         e.preventDefault();
@@ -28,8 +25,8 @@ function LoginPage() {
             promise
 
                 .then((res) => {
-                    setToken(res.data.token);
-                    setName(res.data.user.name);
+                    localStorage.setItem("tokenFastCloset", res.data.token);
+                    localStorage.setItem("nameFastCloset", res.data.user.name);
                     navigate('/');
                 })
 
