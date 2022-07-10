@@ -34,10 +34,10 @@ function LoginPage() {
                 })
 
                 .catch(err => {
-                    if (err.response.status === 401) {
-                        setSendError(err.response.data);
-                    } else if (err.response.status === 404) {
-                        setSendError(err.response.data);
+                    if (err.response.status === 401 || err.response.status === 404) {
+                        setSendError('Preencha os dados corretamente.');
+                    } else {
+                        alert(err.response);
                     }
                 })
 
