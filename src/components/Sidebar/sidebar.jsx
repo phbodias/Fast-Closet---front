@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Sidebar = ({ active }) => {
@@ -22,6 +23,12 @@ const Sidebar = ({ active }) => {
             <p><ion-icon name="bag-handle-outline"></ion-icon></p>
             <p>Meus pedidos</p>
           </div>
+          <Link to='/'>
+            <div>
+              <p><ion-icon name="home-outline"></ion-icon></p>
+              <p>Voltar para home</p>
+            </div>
+          </Link>
         </Options>
       </Content>
     </Container>
