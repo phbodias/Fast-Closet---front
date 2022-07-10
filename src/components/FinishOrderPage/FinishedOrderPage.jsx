@@ -10,7 +10,7 @@ function FinishedOrderPage() {
     const { orderId } = useParams();
 
     useEffect( () => {
-        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/ordersfinished/${orderId}`);
+        const promise = axios.post(`https://fast-closet.herokuapp.com/ordersfinished/${orderId}`);
 
         promise
         .then ( res => {

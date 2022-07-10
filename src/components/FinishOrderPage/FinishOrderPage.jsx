@@ -5,6 +5,7 @@ import Header from "../Headers/HeaderLoginRegister";
 
 function FinishOrderPage() {
     const navigate = useNavigate();
+    // eslint-disable-next-line
     const [paymenteOption, setpaymenteOption] = useState('Pix');
     
     // & RECEBE CARRINHO COM OS PRODUTOS ( ARRAY DE OBJETOS )

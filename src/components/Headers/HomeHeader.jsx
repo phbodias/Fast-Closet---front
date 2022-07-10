@@ -2,16 +2,17 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { useState } from "react";
+import Sidebar from '../Sidebar/sidebar'
 
 export default function HomeHeader() {
     const [user, setUser] = useState([]);
 
+    const [sidebar, setSidebar] = useState(false)
+
+    const showSiderbar = () => setSidebar(!sidebar)
+
     return (
         <HeaderStyle>
-            <Link to='/menu'>
-                <p><ion-icon name="menu-outline"></ion-icon></p>
-            </Link>
-            <h1>FastCloset</h1>
             {user.length === 0 ? (
                 <Link to='/login'>
                     <p><ion-icon name="log-in-outline"></ion-icon></p>
@@ -19,6 +20,9 @@ export default function HomeHeader() {
             ) : (
                 <p onClick={() => setUser([])}><ion-icon name="log-out-outline"></ion-icon></p>
             )}
+            <h1>FastCloset</h1>
+            <p onClick={showSiderbar}><ion-icon name="menu-outline"></ion-icon></p>
+            {sidebar && <Sidebar active={setSidebar} />}
         </HeaderStyle>
     )
 }

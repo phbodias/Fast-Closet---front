@@ -30,7 +30,7 @@ function RegisterPage () {
         const isValid = await registerSchema.isValid(bodyRegister);
 
         if(isValid){
-            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/register`, bodyRegister);
+            const promise = axios.post(`https://fast-closet.herokuapp.com/register`, bodyRegister);
             promise.then( (res) =>{
                 alert(res.data)
                 navigate('/login');

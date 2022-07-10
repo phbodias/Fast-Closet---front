@@ -2,15 +2,15 @@ import styled from "styled-components";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import Header from "../Headers/HeaderLoginRegister";
+import HomeHeader from "../Headers/HomeHeader";
 
 function ProductIdPage (){
     const [product, setProduct] = useState(null);
 
     const { id } = useParams();
-    console.log(id)
+
     useEffect( () => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/product/${id}`);
+        const promise = axios.get(`https://fast-closet.herokuapp.com/product/${id}`);
         promise
         .then( res =>{
             console.log(res.data)
@@ -27,7 +27,7 @@ function ProductIdPage (){
     return (
         <Background>
             
-            <Header/>
+            <HomeHeader/>
 
             {product ?
             <ProductComponent
