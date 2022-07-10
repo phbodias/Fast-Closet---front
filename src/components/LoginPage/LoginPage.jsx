@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginSchema } from '../../validations/validationsYup'
 import axios from "axios";
@@ -7,6 +7,8 @@ import { Background, Form } from './LoginStyle';
 
 function LoginPage() {
     const navigate = useNavigate();
+
+    const [sendError, setSendError] = useState('');
 
     async function sendLogin(e) {
         e.preventDefault();
@@ -25,18 +27,22 @@ function LoginPage() {
             promise
 
                 .then((res) => {
+                    setSendError('');
                     localStorage.setItem("tokenFastCloset", res.data.token);
                     localStorage.setItem("nameFastCloset", res.data.user.name);
                     navigate('/');
                 })
 
                 .catch(err => {
-                    alert(err.response.data)
+                    if (err.response.status === 401) {
+                        setSendError(err.response.data);
+                    } else if (err.response.status === 404) {
+                        setSendError(err.response.data);
+                    }
                 })
 
             return
         }
-        alert('Preencha os dados corretamente, senha inválida ou usuário não existe');
     }
 
     return (
@@ -44,6 +50,10 @@ function LoginPage() {
             <Header />
             <Form onSubmit={sendLogin} >
                 <h1>Identificação</h1>
+
+                {sendError !== "" ? (
+                    <p>{sendError}</p>
+                ) : ""}
 
                 <input type="email" placeholder="Email" required />
 

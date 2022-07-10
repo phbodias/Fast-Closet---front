@@ -18,8 +18,14 @@ const Form = styled.form`
     background-color: #ab9a9ad5;
     padding: 15px;
     border-radius: 10px;
-    width: 70%;
-    
+    width: 80%;
+
+    p{
+        color: red;
+        font-size: 1.0em;
+        margin: -5px 0;
+        text-align: center;
+    }
 
     h1{
         font-size: 1.3em;
