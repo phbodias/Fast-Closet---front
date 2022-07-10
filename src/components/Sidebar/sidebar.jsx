@@ -16,7 +16,7 @@ const Sidebar = ({ active }) => {
         <Close onClick={closeSidebar}><ion-icon name="close-circle-outline"></ion-icon></Close>
         <Hello>
           {name !== "" ? (
-            <p>Olá {name}</p>
+            <p>Olá, {name}.</p>
           ) : (
             <p>Olá ;)</p>
           )}
