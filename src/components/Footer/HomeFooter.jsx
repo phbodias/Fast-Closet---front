@@ -1,10 +1,11 @@
-//import axios from "axios";
+import React, { useContext } from 'react';
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import UserContext from '../../contexts/UserContext';
 
 export default function HomeFooter() {
-    const [user, setUser] = useState([]);
+
+    const { name, setToken } = useContext(UserContext);
 
     return (
         <FooterStyle>
@@ -12,12 +13,12 @@ export default function HomeFooter() {
                 <p><ion-icon name="home-outline"></ion-icon></p>
             </Link>
             <p><ion-icon name="cart-outline"></ion-icon></p>
-            {user.length === 0 ? (
+            {name === "" ? (
                 <Link to='/login'>
                     <p><ion-icon name="log-in-outline"></ion-icon></p>
                 </Link>
             ) : (
-                <p onClick={() => setUser([])}><ion-icon name="log-out-outline"></ion-icon></p>
+                <p onClick={() => setToken("")}><ion-icon name="log-out-outline"></ion-icon></p>
             )}
         </FooterStyle>
     )
