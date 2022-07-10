@@ -2,17 +2,28 @@
 import styled from "styled-components";
 import { useState } from "react";
 import Sidebar from '../Sidebar/sidebar'
+import { Link } from "react-router-dom";
 
 export default function HomeHeader() {
     const [sidebar, setSidebar] = useState(false)
 
     const showSiderbar = () => setSidebar(!sidebar)
 
+    const [username] = useState(localStorage.getItem("nameFastCloset"));
+
     return (
         <HeaderStyle>
             <h1>FastCloset</h1>
-            <p onClick={showSiderbar}><ion-icon name="menu-outline"></ion-icon></p>
-            {sidebar && <Sidebar active={setSidebar} />}
+            {username === "" ? (
+                <Link to="/login">
+                    <p><ion-icon name="log-in-outline"></ion-icon></p>
+                </Link>
+            ) : (
+                <>
+                    <p onClick={showSiderbar}><ion-icon name="menu-outline"></ion-icon></p>
+                    {sidebar && <Sidebar active={setSidebar} />}
+                </>
+            )}
         </HeaderStyle>
     )
 }

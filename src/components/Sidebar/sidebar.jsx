@@ -4,9 +4,17 @@ import styled from 'styled-components';
 
 const Sidebar = ({ active }) => {
 
-  const username = localStorage.getItem("nameFastCloset")
+  const username = localStorage.getItem("nameFastCloset");
 
   const closeSidebar = () => { active(false) }
+
+  function logout() {
+    if (window.confirm("Deseja realmente fazer logout?")) {
+      localStorage.setItem("tokenFastCloset", "");
+      localStorage.setItem("nameFastCloset", "");
+      window.location.reload();
+    }
+  }
 
   return (
     <Container sidebar={active}>
@@ -14,11 +22,10 @@ const Sidebar = ({ active }) => {
       <Content>
         <Close onClick={closeSidebar}><ion-icon name="close-circle-outline"></ion-icon></Close>
         <Hello>
-          {username !== "" ? (
-            <p>Olá, {username}.</p>
-          ) : (
-            <p>Olá ;)</p>
-          )}
+          <p>Olá, {username}.</p>
+          <Login>
+            <p onClick={logout}>Fazer logout</p>
+          </Login>
         </Hello>
         <Options>
           <div>
@@ -43,7 +50,7 @@ const Sidebar = ({ active }) => {
 
 const Options = styled.div`
 
-  margin-top: 40px;
+  margin-top: 25px;
 
   div{
     display: flex;
@@ -55,9 +62,17 @@ const Options = styled.div`
     }
   }
 `
+const Login = styled.div`
+  font-size: 9px;
+  margin-top: 5px;
+  p{
+    color: #dd1d1d;
+  }
+`
 
 const Hello = styled.div`
   margin: 20px;
+  font-size: 15px;
 `
 
 const Container = styled.div`
@@ -103,7 +118,7 @@ const Content = styled.div`
     position: fixed;
     right: 0;
     height: 100vh;
-
+    font-family: var(--roboto-font);
 `;
 
 export default Sidebar
