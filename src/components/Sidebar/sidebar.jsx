@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import UserContext from '../../contexts/UserContext';
 
 const Sidebar = ({ active }) => {
 
-  const { name } = useContext(UserContext);
+  const username = localStorage.getItem("nameFastCloset")
 
   const closeSidebar = () => { active(false) }
 
@@ -15,8 +14,8 @@ const Sidebar = ({ active }) => {
       <Content>
         <Close onClick={closeSidebar}><ion-icon name="close-circle-outline"></ion-icon></Close>
         <Hello>
-          {name !== "" ? (
-            <p>Olá, {name}.</p>
+          {username !== "" ? (
+            <p>Olá, {username}.</p>
           ) : (
             <p>Olá ;)</p>
           )}

@@ -1,11 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
 
 export default function HomeFooter() {
 
-    const { name, setToken } = useContext(UserContext);
+    const [username, setUsername] = useState(localStorage.getItem("nameFastCloset"));
+
+    function deleteLocalStorage() {
+        setUsername("");
+        localStorage.setItem("tokenFastCloset", "");
+        localStorage.setItem("nameFastCloset", "");
+    }
 
     return (
         <FooterStyle>
@@ -13,12 +18,12 @@ export default function HomeFooter() {
                 <p><ion-icon name="home-outline"></ion-icon></p>
             </Link>
             <p><ion-icon name="cart-outline"></ion-icon></p>
-            {name === "" ? (
+            {username === "" ? (
                 <Link to='/login'>
                     <p><ion-icon name="log-in-outline"></ion-icon></p>
                 </Link>
             ) : (
-                <p onClick={() => setToken("")}><ion-icon name="log-out-outline"></ion-icon></p>
+                <p onClick={deleteLocalStorage}><ion-icon name="log-out-outline"></ion-icon></p>
             )}
         </FooterStyle>
     )
