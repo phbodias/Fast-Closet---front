@@ -1,22 +1,16 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Sidebar = ({ active }) => {
   const closeSidebar = () => { active(false) }
-  const navigate = useNavigate();
 
   const username = localStorage.getItem("nameFastCloset");
   const token = localStorage.getItem("tokenFastCloset");
 
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
-
-  useEffect(() => {
-    //getCartProducts()
-    // eslint-disable-next-line
-  }, []);
 
   function logout() {
     if (window.confirm("Deseja realmente fazer logout?")) {
@@ -45,8 +39,6 @@ const Sidebar = ({ active }) => {
 
       .catch((err) => {
         alert(err.response.data);
-        logout();
-        navigate('/login');
       })
   }
 
@@ -62,14 +54,6 @@ const Sidebar = ({ active }) => {
           </Login>
         </Hello>
         <Options>
-          <div>
-            <p><ion-icon name="person-outline"></ion-icon></p>
-            <p>Minha conta</p>
-          </div>
-          <div>
-            <p><ion-icon name="bag-handle-outline"></ion-icon></p>
-            <p>Meus pedidos</p>
-          </div>
           <Link to='/'>
             <div>
               <p><ion-icon name="home-outline"></ion-icon></p>
@@ -144,6 +128,7 @@ const Product = styled.div`
   div{
     display: flex;
     flex-direction: column;
+    margin-top: 3px;
     
     p{
       font-size: 18px;
