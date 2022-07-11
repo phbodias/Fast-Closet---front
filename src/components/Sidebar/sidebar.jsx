@@ -96,7 +96,7 @@ const Sidebar = ({ active }) => {
                       )
                     })}
                     <Link to='/finalizarpedido'>
-                      <p>Finalizar pedido</p>
+                      <Button>Finalizar pedido</Button>
                     </Link>
                   </>
                 )}
@@ -109,6 +109,23 @@ const Sidebar = ({ active }) => {
     </Container>
   )
 }
+
+const Button = styled.div`
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    background-color: #d13131;
+    width: 60%;
+    padding: 10px 0;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    &:hover{
+        background-color: var(--cor01);
+        cursor: pointer;
+    }
+`
 
 const Product = styled.div`
   margin-bottom: 17px;
