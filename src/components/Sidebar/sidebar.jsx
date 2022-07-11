@@ -26,7 +26,7 @@ const Sidebar = ({ active }) => {
   }
 
   function getCartProducts() {
-    setShowCart(!showCart);
+    
     const promisse = axios.get(`https://fast-closet.herokuapp.com/cart`,
       {
         headers: {
@@ -37,6 +37,7 @@ const Sidebar = ({ active }) => {
     promisse
       .then((res) => {
         setCart(res.data);
+        setShowCart(!showCart);
       })
 
       .catch((err) => {
