@@ -44,7 +44,7 @@ function FinishOrderPage() {
 
     useEffect( () =>{
         const bodyToken = { headers : { Authorization: `Bearer ${token}` } };
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart`, bodyToken);
+        const promise = axios.get(`https://fast-closet.herokuapp.com/cart`, bodyToken);
 
         promise
         .then( resp =>{
