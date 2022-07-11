@@ -26,7 +26,7 @@ const Sidebar = ({ active }) => {
   }
 
   function getCartProducts() {
-    const promisse = axios.get(`https://fast-closet.herokuapp.com/cart`,
+    const promisse = axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart`,
       {
         headers: {
           Authorization: `Bearer ${token}`

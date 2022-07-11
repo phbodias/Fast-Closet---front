@@ -23,23 +23,23 @@ function LoginPage() {
 
         if (isValid) {
 
-            const promise = axios.post(`https://fast-closet.herokuapp.com/login`, user);
+            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/login`, user);
+
             promise
+            .then((res) => {
+                setSendError('');
+                localStorage.setItem("tokenFastCloset", res.data.token);
+                localStorage.setItem("nameFastCloset", res.data.user.name);
+                navigate('/');
+            })
 
-                .then((res) => {
-                    setSendError('');
-                    localStorage.setItem("tokenFastCloset", res.data.token);
-                    localStorage.setItem("nameFastCloset", res.data.user.name);
-                    navigate('/');
-                })
-
-                .catch(err => {
-                    if (err.response.status === 401 || err.response.status === 404) {
-                        setSendError('Preencha os dados corretamente.');
-                    } else {
-                        alert(err.response);
-                    }
-                })
+            .catch(err => {
+                if (err.response.status === 401 || err.response.status === 404) {
+                    setSendError('Preencha os dados corretamente.');
+                } else {
+                    alert(err.response);
+                }
+            })
 
             return
         }

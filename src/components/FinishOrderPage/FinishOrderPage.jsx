@@ -4,109 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Headers/HeaderLoginRegister";
 
-function FinishOrderPage() {
-    const navigate = useNavigate();
-    const [items, setItems] = useState(null);
-    const [paymenteOption, setpaymenteOption] = useState('Pix');
-    const token = localStorage.getItem("tokenFastCloset");
-
-    useEffect( () =>{
-        const bodyToken = { headers : { Authorization: `Bearer ${token}` } };
-
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart`, bodyToken);
-
-        promise
-        .then( resp =>{
-            setItems(resp.data);
-        })
-
-        .catch( err =>{
-            console.log(err)
-        })
-
-    }, [token]);
-
-
-    // & RECEBE CARRINHO COM OS PRODUTOS ( ARRAY DE OBJETOS )
-    // & RENDERIZA OS PRODUTOS NA TELA
-    // & APÓS O USUÁRIO PREENCHER TODOS OS DADOS VALIDA-OS E VAI PRA TELA DE "SUCESSO"
-
-
-    
-    function plusValue (items){
-        let totalValue = 0;
-        for(let i = 0; i < items.length; i++){
-            const { product } = items[i];
-            const value = parseFloat(product.value.replace(",","."));
-            totalValue+= value;
-        }
-        return totalValue.toFixed(2);
-    }
-
-    function finishOrder (e){
-        e.preventDefault();
-        navigate('/pedidofinalizado');
-    }
-
-    return (
-        <Background>
-            <Header />
-            <Content>
-                <FormBox>
-
-                    <h2>Finalizar pedido</h2>
-
-                    <ItemsList>
-                        {<ItemFromCart items={items}/>}
-                        {/* {
-                        items === null ?
-                        <p>Produtos não encontrado</p>
-                        :
-                        items.map( (item, index) => renderItems(item, index)) } */}
-                    </ItemsList>
-                    
-                    <TotalValue>
-                        <h3>Valor Total: </h3>
-                        <span>R$ {items ? plusValue(items).replace(".", ",") : '00,00'}</span>
-                    </TotalValue>
-
-                    <Hrow />
-
-                    <Form onSubmit={ e => finishOrder(e)}>
-
-                        <h2>Dados para contato</h2>
-                        <input type="email" placeholder="Email" required />
-                        <input type="text" placeholder="Nome" required />
-                        <input type="number" placeholder="DD+Telefone" required />
-
-                        <PaymentDiv>
-                            <h2>Selecione sua forma de pagamento</h2>
-                            <select name="select" onChange={ e => setpaymenteOption(e.target.value)}>
-                                <option value="Pix">Pix</option>
-                                <option value="Boleto">Boleto</option>
-                                <option value="Cartão de Crédito">Cartão de Crédito</option>
-                            </select>
-                        </PaymentDiv>
-
-                        <h2>Dados para entrega</h2>
-                        <input type="text" placeholder="Estado" required />
-                        <input type="text" placeholder="Município" required />
-                        <input type="text" placeholder="Bairro" required />
-                        <input type="text" placeholder="Endereço, número" required />
-
-                        <button>Finalizar pedido e Realizar pagagamento...</button>
-
-                    </Form>
-
-                </FormBox>
-            </Content>
-        </Background>
-    )
-}
-
 function ItemFromCart ({ items}){
-    const [ previousItem, setPreviousItem ] = useState(null);
-
     if(items === null){  return <h1>Carrinho Vázio</h1>    } 
     
     const arrIds = items.map( (item, index) =>{
@@ -127,6 +25,134 @@ function ItemFromCart ({ items}){
 
     return arrIds
 }
+
+
+function FinishOrderPage() {
+    const navigate = useNavigate();
+    const token = localStorage.getItem("tokenFastCloset");
+
+    const [items, setItems] = useState(null);
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [tel, setTel] = useState('');
+    const [cep, setCep] = useState('');
+    const [address, setAddress] = useState('');
+    const [paymenteOption, setpaymenteOption] = useState('Pix');
+    const [totalValue, setTotalValue] = useState('')
+
+    
+
+    useEffect( () =>{
+        const bodyToken = { headers : { Authorization: `Bearer ${token}` } };
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart`, bodyToken);
+
+        promise
+        .then( resp =>{
+            setItems(resp.data);
+            plusValue(resp.data);
+        })
+
+        .catch( err =>{
+            console.log(err);
+        })
+
+    }, [token]);
+
+
+    const body = {
+        products: items,
+        email,
+        name,
+        tel,
+        cep,
+        address,
+        paymenteOption,
+        totalValue
+    }
+    
+
+    function plusValue (items){
+        let totalValue = 0;
+        for(let i = 0; i < items.length; i++){
+            const { product } = items[i];
+            const value = parseFloat(product.value.replace(",","."));
+            totalValue+= value;
+        }
+        setTotalValue(totalValue.toFixed(2).replace('.', ','))
+    }
+    function finishOrder (e){
+        e.preventDefault();
+
+            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/finishorder`, body, { headers : { Authorization: `Bearer ${token}` } });
+
+        promise
+        .then( resp =>{
+            console.log(resp)
+        })
+
+        .catch( err =>{
+            console.log(err);
+        })
+        
+        navigate('/pedidofinalizado');
+    }
+    return (
+        <Background>
+            <Header />
+            <Content>
+                <FormBox>
+
+                    <h2>Finalizar pedido</h2>
+
+                    <ItemsList>
+                        {<ItemFromCart items={items}/>}
+                    </ItemsList>
+                    
+                    <TotalValue>
+                        <h3>Valor Total: </h3>
+                        <span>R$ {totalValue ? totalValue: '00,00'}</span>
+                    </TotalValue>
+
+                    <Hrow />
+
+                    <Form onSubmit={ e => finishOrder(e)}>
+
+                        <h2>Dados para contato</h2>
+                        <input onChange={ e => setEmail(e.target.value)} value={email}
+                        type="email" placeholder="Email" required />
+
+                        <input onChange={ e => setName(e.target.value)} value={name}
+                        type="text" placeholder="Nome" required />
+
+                        <input onChange={ e => setTel(e.target.value)} value={tel}
+                        type="number" placeholder="DD+Telefone" required />
+
+                        <PaymentDiv>
+                            <h2>Selecione sua forma de pagamento</h2>
+                            <select name="select" onChange={ e => setpaymenteOption(e.target.value)}>
+                                <option value="Pix">Pix</option>
+                                <option value="Boleto">Boleto</option>
+                                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            </select>
+                        </PaymentDiv>
+
+                        <h2>Dados para entrega</h2>
+                        <input onChange={ e => setCep(e.target.value)} value={cep}
+                        type="number" placeholder="CEP" required />
+
+                        <input onChange={ e => setAddress(e.target.value)} value={address}
+                        type="text" placeholder="Endereço" required />
+
+                        <button>Finalizar pedido e Realizar pagagamento...</button>
+
+                    </Form>
+
+                </FormBox>
+            </Content>
+        </Background>
+    )
+}
+
 
 
 
