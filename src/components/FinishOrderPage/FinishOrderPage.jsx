@@ -1,18 +1,48 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Headers/HeaderLoginRegister";
 
 function FinishOrderPage() {
     const navigate = useNavigate();
-    // eslint-disable-next-line
+    const [items, setItems] = useState(null);
     const [paymenteOption, setpaymenteOption] = useState('Pix');
-    
+    const token = localStorage.getItem("tokenFastCloset");
+
+    useEffect( () =>{
+        const bodyToken = { headers : { Authorization: `Bearer ${token}` } };
+
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/cart`, bodyToken);
+
+        promise
+        .then( resp =>{
+            setItems(resp.data);
+        })
+
+        .catch( err =>{
+            console.log(err)
+        })
+
+    }, [token]);
+
+
     // & RECEBE CARRINHO COM OS PRODUTOS ( ARRAY DE OBJETOS )
     // & RENDERIZA OS PRODUTOS NA TELA
     // & APÓS O USUÁRIO PREENCHER TODOS OS DADOS VALIDA-OS E VAI PRA TELA DE "SUCESSO"
 
+
     
+    function plusValue (items){
+        let totalValue = 0;
+        for(let i = 0; i < items.length; i++){
+            const { product } = items[i];
+            const value = parseFloat(product.value.replace(",","."));
+            totalValue+= value;
+        }
+        return totalValue.toFixed(2);
+    }
+
     function finishOrder (e){
         e.preventDefault();
         navigate('/pedidofinalizado');
@@ -26,7 +56,19 @@ function FinishOrderPage() {
 
                     <h2>Finalizar pedido</h2>
 
-                    {/* // ITEMS */}
+                    <ItemsList>
+                        {<ItemFromCart items={items}/>}
+                        {/* {
+                        items === null ?
+                        <p>Produtos não encontrado</p>
+                        :
+                        items.map( (item, index) => renderItems(item, index)) } */}
+                    </ItemsList>
+                    
+                    <TotalValue>
+                        <h3>Valor Total: </h3>
+                        <span>R$ {items ? plusValue(items).replace(".", ",") : '00,00'}</span>
+                    </TotalValue>
 
                     <Hrow />
 
@@ -56,13 +98,37 @@ function FinishOrderPage() {
 
                     </Form>
 
-
-
                 </FormBox>
             </Content>
         </Background>
     )
 }
+
+function ItemFromCart ({ items}){
+    const [ previousItem, setPreviousItem ] = useState(null);
+
+    if(items === null){  return <h1>Carrinho Vázio</h1>    } 
+    
+    const arrIds = items.map( (item, index) =>{
+        const { product } = item;
+        return <ItemBox key={index}>
+
+                    <div className="titleAndValue">
+                        <h3>{product.title}</h3>
+                        <span>R$ {product.value}</span>
+                    </div>
+
+                    <div className="canvaImg">
+                        <img src={product.images[0]} alt={product.title} />
+                    </div>
+
+               </ItemBox>
+    });
+
+    return arrIds
+}
+
+
 
 
 export default FinishOrderPage;
@@ -173,4 +239,42 @@ const PaymentDiv = styled.div`
         border-radius: 5px;
         font-size: 1.1em;
     }
+`
+
+const ItemsList =  styled.div`
+    display: flex; flex-direction: column;
+    gap: 5px;
+`
+
+const ItemBox = styled.div`
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: lightgray;
+    width: 100%;
+    height: 80px;
+    display: flex; justify-content: space-between;
+    gap: 20px;
+    padding: 10px;
+
+    .titleAndValue {
+        display: flex; flex-direction: column;
+        height: 100%;
+        justify-content: space-between;
+
+        span{
+            font-weight: bold;
+        }
+
+    }
+
+    .canvaImg, img {
+        width: 50px;
+        height: 50px;
+    }
+`
+
+const TotalValue = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 `
