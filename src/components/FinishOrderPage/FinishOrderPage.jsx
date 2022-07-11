@@ -83,7 +83,7 @@ function FinishOrderPage() {
     function finishOrder (e){
         e.preventDefault();
 
-            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/finishorder`, body, { headers : { Authorization: `Bearer ${token}` } });
+            const promise = axios.post(`https://fast-closet.herokuapp.com/finishorder`, body, { headers : { Authorization: `Bearer ${token}` } });
 
         promise
         .then( resp =>{
