@@ -14,7 +14,6 @@ function ProductIdPage() {
         const promise = axios.get(`https://fast-closet.herokuapp.com/product/${id}`);
         promise
             .then(res => {
-                console.log(res.data)
                 setProduct(res.data.product)
             })
             .catch(err => {
@@ -68,8 +67,7 @@ function ProductComponent({ images, title, value, description, id }) {
             <ProductBox>
 
                 <BoxImg>
-
-                    {images.map(image => <img src={image} alt="" />)}
+                    {images.map( (image, index) => <img key={index} src={image} alt="" />)}
                 </BoxImg>
 
                 <TitleAndValue>
@@ -144,10 +142,9 @@ const BoxImg = styled.div`
     box-sizing: border-box;
     border-radius: 5px;
     background-color: white;
-    display: flex; justify-content: flex-start; align-items: center;
+    display: flex; justify-content: center; align-items: center;
     width: 100%;
     height: 300px;
-    border: 3px solid #1D1B1B;
     overflow: scroll;
 
     img{

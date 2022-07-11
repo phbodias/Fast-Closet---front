@@ -73,7 +73,7 @@ const Sidebar = ({ active }) => {
                   <>
                     {cart.map((item, index) => {
                       return (
-                        <Link to={`/produto/${item._id}`}>
+                        <Link key={index} to={`/produto/${item._id}`}>
                           <Product>
                             <img src={item.product.images[0]} alt="product" />
                             <div>
