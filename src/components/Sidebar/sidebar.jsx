@@ -37,7 +37,9 @@ const Sidebar = ({ active }) => {
     );
     promisse
       .then((res) => {
-        setCart(res.data);
+        setCart(res.data.filter(function (a) {
+          return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+        }, Object.create(null)));
         setShowCart(!showCart);
       })
 
@@ -125,6 +127,7 @@ const Button = styled.div`
     font-size: 1.2em;
     font-weight: bold;
     border-radius: 5px;
+    margin-bottom: 100px;
     &:hover{
         background-color: var(--cor01);
         cursor: pointer;
