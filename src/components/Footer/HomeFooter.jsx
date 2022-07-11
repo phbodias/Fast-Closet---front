@@ -1,15 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
 
 export default function HomeFooter() {
 
     return (
         <FooterStyle>
-            <Link to='/'>
-                <p><ion-icon name="home-outline"></ion-icon></p>
-            </Link>
-            <p><ion-icon name="cart-outline"></ion-icon></p>
+            <p><ion-icon name="home-sharp"></ion-icon></p>
         </FooterStyle>
     )
 }

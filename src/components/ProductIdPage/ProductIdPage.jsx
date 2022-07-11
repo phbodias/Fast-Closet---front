@@ -4,59 +4,72 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import HomeHeader from "../Headers/HomeHeader";
 
-function ProductIdPage (){
+function ProductIdPage() {
     const [product, setProduct] = useState(null);
 
     const { id } = useParams();
 
-    useEffect( () => {
-        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/product/${id}`);
+
+    useEffect(() => {
+        const promise = axios.get(`https://fast-closet.herokuapp.com/product/${id}`);
         promise
-        .then( res =>{
-            console.log(res.data)
-            setProduct(res.data.product)
-        })
-        .catch( err =>{
-            console.log(err.response.data)
-        })
+            .then(res => {
+                console.log(res.data)
+                setProduct(res.data.product)
+            })
+            .catch(err => {
+                console.log(err.response.data)
+            })
 
     }, [id]);
-    
+
 
 
     return (
         <Background>
-            
-            <HomeHeader/>
+
+            <HomeHeader />
 
             {product ?
-            <ProductComponent
-            images={product.images}
-            title={product.title}
-            value={product.value}
-            description={product.description}
-            />
-            :
-            <Content><h1 className="noProduct" >Produto não encontrado</h1></Content>}
-           
+                <ProductComponent
+                    images={product.images}
+                    title={product.title}
+                    value={product.value}
+                    description={product.description}
+                    id={id}
+                />
+                :
+                <Content><h1 className="noProduct" >Produto não encontrado</h1></Content>}
+
         </Background>
     )
 }
 
-function ProductComponent ({ images, title, value, description }){
+function ProductComponent({ images, title, value, description, id }) {
 
-    function addOnCart(){
-        console.log('adicionei no carrinho');
+    const token = localStorage.getItem("tokenFastCloset");
+
+    function addOnCart() {
+        axios.post(`https://fast-closet.herokuapp.com/cart`,
+            {
+                productId: id
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
     }
-    
-    return(
+
+    return (
         <Content>
 
             <ProductBox>
 
                 <BoxImg>
-                
-                   {images.map( image => <img src={image} alt="" />)}
+
+                    {images.map(image => <img src={image} alt="" />)}
                 </BoxImg>
 
                 <TitleAndValue>
@@ -69,12 +82,12 @@ function ProductComponent ({ images, title, value, description }){
                     <p>Quantidade</p>
                     <input type="number" defaultValue={1} />
                 </AmountBox>
-                
-            
+
+
                 <BuyButton onClick={addOnCart}>COMPRAR</BuyButton>
-        
-    
-                <Hrow/>
+
+
+                <Hrow />
 
                 <Description>
                     <h2>Descrição do produto</h2>
@@ -84,7 +97,7 @@ function ProductComponent ({ images, title, value, description }){
 
             </ProductBox>
 
-            
+
         </Content>
     )
 }
