@@ -9,6 +9,7 @@ function ProductIdPage() {
 
     const { id } = useParams();
 
+
     useEffect(() => {
         const promise = axios.get(`https://fast-closet.herokuapp.com/product/${id}`);
         promise

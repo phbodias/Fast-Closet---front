@@ -17,7 +17,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/produto/:id' element={<ProductIdPage />} />
         <Route path='/finalizarpedido' element={<FinishOrderPage />} />
-        <Route path='/pedidofinalizado/:orderId' element={<FinishedOrderPage />} />
+        <Route path='/pedidofinalizado' element={<FinishedOrderPage />} />
       </Routes>
     </BrowserRouter>
   );

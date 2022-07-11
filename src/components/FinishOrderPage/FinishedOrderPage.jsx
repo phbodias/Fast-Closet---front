@@ -1,30 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Headers/HeaderLoginRegister";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 function FinishedOrderPage() {
-    const [text, setText] = useState(null);
     const navigate = useNavigate();
-    const { orderId } = useParams();
 
-    useEffect( () => {
-        const promise = axios.post(`https://fast-closet.herokuapp.com/ordersfinished/${orderId}`);
-
-        promise
-        .then ( res => {
-            setText(<h1>Pedido finalizado com sucesso.</h1>)
-        })
-        .catch ( err => {
-            console.log(err)
-            setText(<h1>Pedido não encontrado.</h1>)
-        })
-
-
-    }, [orderId])
-    
-    
 
     function backHome(){
         navigate('/')
@@ -34,7 +14,8 @@ function FinishedOrderPage() {
         <Background>
             <Header/>
             <Content>
-                {text}
+
+                <h1>Pedido finalizado com sucesso.</h1>
 
                 <br /> <br />
 

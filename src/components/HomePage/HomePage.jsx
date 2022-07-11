@@ -15,7 +15,7 @@ function HomePage() {
     }, []);
 
     function getProducts() {
-        const promise = axios.get(`https://fast-closet.herokuapp.com/products`);
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/products`);
         promise
             .then((res) => {
                 const data = shuffleArray(res.data);
