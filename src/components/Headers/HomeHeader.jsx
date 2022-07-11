@@ -13,7 +13,9 @@ export default function HomeHeader() {
 
     return (
         <HeaderStyle>
-            <h1>FastCloset</h1>
+            <Link to='/'>
+                <h1>FastCloset</h1>
+            </Link>
             {username === "" ? (
                 <Link to="/login">
                     <p><ion-icon name="log-in-outline"></ion-icon></p>

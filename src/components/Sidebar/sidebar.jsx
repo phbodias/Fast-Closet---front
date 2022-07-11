@@ -26,6 +26,7 @@ const Sidebar = ({ active }) => {
   }
 
   function getCartProducts() {
+    setShowCart(!showCart);
     const promisse = axios.get(`https://fast-closet.herokuapp.com/cart`,
       {
         headers: {
@@ -71,23 +72,36 @@ const Sidebar = ({ active }) => {
           </Link>
           <div>
             <p><ion-icon name="cart-outline"></ion-icon></p>
-            <p onClick={() => setShowCart(!showCart)}>Carrinho</p>
+            <p onClick={getCartProducts}>Carrinho</p>
           </div>
           <Cart>
             {showCart ? (
-              cart.length > 0 ? (
-                <Itens>
-                  {cart.map((item, index) => {
-                    return (
-                      <p>{item}</p>
-                    )
-                  })}
-                </Itens>
-              ) : (
-                <NoItens>
+              <Itens>
+                {cart[0] === "Carrinho vazio." ? (
                   <p>Carrinho vazio</p>
-                </NoItens>
-              )
+                ) : (
+                  <>
+                    {cart.map((item, index) => {
+                      return (
+                        <Link to={`/produto/${item._id}`}>
+                          <Product>
+                            <img src={item.product.images[0]} alt="product" />
+                            <div>
+                              <p key={index}>{item.product.title}</p>
+                              <p>R${item.product.value}</p>
+                            </div>
+                          </Product>
+                        </Link>
+
+                      )
+                    })}
+                    <Link to='/finalizarpedido'>
+                      <p>Finalizar pedido</p>
+                    </Link>
+                  </>
+                )}
+
+              </Itens>
             ) : ""}
           </Cart>
         </Options>
@@ -96,13 +110,30 @@ const Sidebar = ({ active }) => {
   )
 }
 
-const Itens = styled.div`
+const Product = styled.div`
+  margin-bottom: 17px;
+
+  img{
+    height: 50px;
+  }
   
+  div{
+    display: flex;
+    flex-direction: column;
+    
+    p{
+      font-size: 18px;
+      text-overflow: ellipsis;
+    }
+  }
 `
 
-const NoItens = styled.div`
-  width: 200px;
-  height: 30px;
+const Itens = styled.div`
+  width: 250px;
+  height: fit-content;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 `
 
 const Cart = styled.div`
@@ -181,6 +212,7 @@ const Content = styled.div`
     right: 0;
     height: 100vh;
     font-family: var(--roboto-font);
+    overflow-y: scroll;
 `
 
 export default Sidebar
