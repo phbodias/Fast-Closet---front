@@ -23,7 +23,6 @@ const Sidebar = ({ active }) => {
       localStorage.setItem("tokenFastCloset", "");
       localStorage.setItem("nameFastCloset", "");
       window.location.reload();
-      navigate('/');
     }
   }
 
@@ -40,12 +39,12 @@ const Sidebar = ({ active }) => {
       .then((res) => {
         setCart(res.data);
         setShowCart(!showCart);
-        logout()
-        navi
       })
 
       .catch((err) => {
         alert(err.response.data);
+        logout();
+        navigate('/login');
       })
   }
 
