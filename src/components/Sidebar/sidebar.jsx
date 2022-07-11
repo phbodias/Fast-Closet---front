@@ -1,12 +1,21 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Sidebar = ({ active }) => {
+  const closeSidebar = () => { active(false) }
 
   const username = localStorage.getItem("nameFastCloset");
+  const token = localStorage.getItem("tokenFastCloset");
 
-  const closeSidebar = () => { active(false) }
+  const [cart, setCart] = useState([]);
+  const [showCart, setShowCart] = useState(false);
+
+  useEffect(() => {
+    //getCartProducts()
+    // eslint-disable-next-line
+  }, []);
 
   function logout() {
     if (window.confirm("Deseja realmente fazer logout?")) {
@@ -14,6 +23,24 @@ const Sidebar = ({ active }) => {
       localStorage.setItem("nameFastCloset", "");
       window.location.reload();
     }
+  }
+
+  function getCartProducts() {
+    const promisse = axios.get(`https://fast-closet.herokuapp.com/cart`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    promisse
+      .then((res) => {
+        setCart(res.data);
+      })
+
+      .catch((err) => {
+        alert(err.response.data);
+      })
   }
 
   return (
@@ -42,11 +69,46 @@ const Sidebar = ({ active }) => {
               <p>Voltar para home</p>
             </div>
           </Link>
+          <div>
+            <p><ion-icon name="cart-outline"></ion-icon></p>
+            <p onClick={() => setShowCart(!showCart)}>Carrinho</p>
+          </div>
+          <Cart>
+            {showCart ? (
+              cart.length > 0 ? (
+                <Itens>
+                  {cart.map((item, index) => {
+                    return (
+                      <p>{item}</p>
+                    )
+                  })}
+                </Itens>
+              ) : (
+                <NoItens>
+                  <p>Carrinho vazio</p>
+                </NoItens>
+              )
+            ) : ""}
+          </Cart>
         </Options>
       </Content>
     </Container>
   )
 }
+
+const Itens = styled.div`
+  
+`
+
+const NoItens = styled.div`
+  width: 200px;
+  height: 30px;
+`
+
+const Cart = styled.div`
+  font-size: 9px;
+  margin-left: 20px;
+`
 
 const Options = styled.div`
 
@@ -119,6 +181,6 @@ const Content = styled.div`
     right: 0;
     height: 100vh;
     font-family: var(--roboto-font);
-`;
+`
 
 export default Sidebar
