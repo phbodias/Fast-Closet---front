@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Sidebar = ({ active }) => {
   const closeSidebar = () => { active(false) }
+  const navigate = useNavigate();
 
   const username = localStorage.getItem("nameFastCloset");
   const token = localStorage.getItem("tokenFastCloset");
@@ -22,6 +23,7 @@ const Sidebar = ({ active }) => {
       localStorage.setItem("tokenFastCloset", "");
       localStorage.setItem("nameFastCloset", "");
       window.location.reload();
+      navigate('/');
     }
   }
 
@@ -38,6 +40,8 @@ const Sidebar = ({ active }) => {
       .then((res) => {
         setCart(res.data);
         setShowCart(!showCart);
+        logout()
+        navi
       })
 
       .catch((err) => {
